@@ -52,7 +52,8 @@ app.get("/listings/:id",async(req,res)=>{
 
 //create route
 app.post("/listings",async(req,res)=>{
-    let {title,description,price,image,country,location}=req.body;
+    try{
+        let {title,description,price,image,country,location}=req.body;
     let newListing=new Listing({
         title,
         description,
@@ -64,6 +65,11 @@ app.post("/listings",async(req,res)=>{
 
     await newListing.save();
     res.redirect("/listings");
+    }
+    catch(err){
+        next(err);
+    }
+    
     
 });
 
@@ -120,6 +126,10 @@ app.delete("/listings/:id",async(req,res)=>{
 //         console.log("Sample saved");
 //         res.send("Success");
 // });
+
+app.use((err,req,res,next)=>{
+    res.send("Something went wrong");
+})
 
 app.listen(5000,()=>{
     console.log("working");
