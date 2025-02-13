@@ -75,11 +75,26 @@ app.get("/listings/:id/edit",async(req,res)=>{
 });
 
 //update route
-app.put("/listings/:id",async(req,res)=>{
-    let {id}=req.params;
-    await Listing.findByIdAndUpdate(id,{...req.body});
+app.put("/listings/:id", async (req, res) => {
+    let { id } = req.params;
+    const updatedlisting=await Listing.findById(id);
+
+    if (!updatedlisting) {
+        return res.status(404).send("Listing not found");
+    }
+
+    updatedlisting.title=req.body.title;
+    updatedlisting.description=req.body.description;
+    updatedlisting.image.url=req.body.image;
+    updatedlisting.price=req.body.price;
+    updatedlisting.location=req.body.location;
+    updatedlisting.country=req.body.country;
+    
+    await Listing.findByIdAndUpdate(id,updatedlisting);
     res.redirect("/listings");
+
 });
+
  
 //delete route
 app.delete("/listings/:id",async(req,res)=>{
@@ -87,6 +102,10 @@ app.delete("/listings/:id",async(req,res)=>{
     await Listing.findByIdAndDelete(id);
     res.redirect("/listings");
 });
+
+
+
+
 
 // app.get("/testListing",async(req,res)=>{
 //     let sampleListing = new Listing({
