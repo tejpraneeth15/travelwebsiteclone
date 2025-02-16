@@ -49,7 +49,7 @@ app.get("/listings/new",(req,res)=>{
 //show route
 app.get("/listings/:id",wrapAsync(async(req,res)=>{
     let {id}=req.params;
-    const listing=await Listing.findById(id);
+    const listing=await Listing.findById(id).populate("reviews");
     res.render("listings/show.ejs",{listing});
 }));
 
@@ -117,7 +117,13 @@ app.post("/listings/:id/reviews",wrapAsync(async(req,res)=>{
     res.redirect(`/listings/${listing.id}`);
 }));
 
+//delete review 
+app.delete("/listings/:id/reviews/:reviewId",wrapAsync(async(req,res)=>{
+let {id,reviewId}=req.params;
 
+await Review.findByIdAndDelete(reviewId);
+res.redirect(`/listings/${id}`);
+}));
 
 
 // app.get("/testListing",async(req,res)=>{
