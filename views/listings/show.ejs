@@ -4,7 +4,7 @@
         <div class="col-8 offset-2">
 
         
-    <h3>Listing Details</h3>
+    <h3><%= listing.title %></h3>
     <div class="card col-6 offset-2">
         <div class="card" style="width: 18rem;">
             <img class="card-img-top show-img" src="<%= listing.image.url%>" alt="listing_image">
@@ -21,19 +21,26 @@
           </div>
     </div>
 
-    <!-- <ul>
-        <li><%= listing.title %></li>
-        <li><%= listing.description %></li>
-        <li>&#8377; <%= listing.price.toLocaleString("en-IN") %></li>
-        <li><%= listing.location %></li>
-        <li><%= listing.country %></li>
-    </ul> -->
     <br><br>
     <div class="col-1 buttons"><a class="btn btn-dark" href="/listings/<%=listing.id %>/edit">Edit</a></div><br>
     <div class="col-1 buttons">
         <form method="POST"  action="/listings/<%=listing.id %>?_method=DELETE">
             <button class="btn btn-dark">DELETE</button>
         </form>
+    </div>
+    <div class="co1-8 offset-3"><h4>Leave a review</h4>
+        <br>
+    <form action="/listings/<%= listing.id %>/reviews" method="post">
+        <div class="mb-3 mt-3">
+            <label for="rating" class="form-label" >Rating</label>
+            <input type="range" min="1" max="5" id="rating" class="form-range" name="review[rating]">
+    </div>
+    <div>
+        <label class="form-label" for="comment">Comments</label>
+        <textarea name="review[comment]" class="form-control" id="comment" cols="30" rows="5"></textarea>
+    </div>
+    <button class="btn btn-outline-dark">Submit</button>
+</form>
     </div>
     
 
