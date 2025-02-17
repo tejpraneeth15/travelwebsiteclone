@@ -1,1 +1,1 @@
-# travelwebsiteclone
+This is a full-stack travel website clone built using the MERN stack (MongoDB, Express.js, React.js, Node.js). The project was developed to gain practical experience in building scalable web applications with modern technologies.
