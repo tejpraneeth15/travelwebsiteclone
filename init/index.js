@@ -16,8 +16,30 @@ main().then(()=>{
 
 const initDB=async() =>{
     await Listing.deleteMany({});
-    await Listing.insertMany(initData.data)
+    modifiedData=initData.data.map((obj)=>({...obj,owner:"67b58d49cf29375873926e3a"}));
+    await Listing.insertMany(modifiedData);
     console.log("data was initialised");
-}
+};
+
+// const initDB = async () => {
+//     try {
+//         await Listing.deleteMany({});
+        
+//         // Create a new array with the added owner field
+//         const modifiedData = initData.data.map((obj) => ({
+//             ...obj,
+//             owner: "67b58d49cf29375873926e3a"
+//         }));
+
+//         await Listing.insertMany(modifiedData); // Insert the modified array
+//         console.log("Data was initialized");
+//     } catch (err) {
+//         console.error("Error initializing data:", err);
+//     } finally {
+//         mongoose.connection.close(); // Close the connection after seeding
+//     }
+// };
 
 initDB();
+
+

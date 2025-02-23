@@ -13,10 +13,13 @@
 
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav ms-auto">
+            <% if(!currUser){ %>
             <a class="nav-link active" aria-current="page" href="/signup">Signup</a>
             <a class="nav-link" href="/login">Log in</a>
+            <% } %>
+            <% if(currUser){ %>
             <a class="nav-link" href="/logout">logout</a>
-            
+            <% } %>
           </div>
       </div>
     </div>
