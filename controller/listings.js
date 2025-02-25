@@ -20,12 +20,14 @@ module.exports.showListing=async(req,res)=>{
 };
 
 module.exports.createNewListing=async(req,res)=>{
-    let {title,description,price,image,country,location}=req.body;
+    let newurl=req.file.path;
+    let newfilename=req.file.filename;
+    let {title,description,price,country,location}=req.body;
 let newListing=new Listing({
     title,
     description,
     price,
-    image:{url :image},
+    image:{url :newurl,filename:newfilename},
     location,
     country
 });
@@ -40,12 +42,13 @@ module.exports.renderEditForm=async(req,res)=>{
     let {id}=req.params;
     const listing= await Listing.findById(id);
     
-    res.render("listings/edit.ejs",{listing});
+    let originalImageUrl=listing.image.url;
+    originalImageUrl=originalImageUrl.replace("/upload","/upload/h_300,w_250");
+    res.render("listings/edit.ejs",{listing,originalImageUrl});
 };
 
 module.exports.updateListing=async (req, res) => {
     let { id } = req.params;
-
     const updatedlisting=await Listing.findById(id);
     if (!updatedlisting) {
         return res.status(404).send("Listing not found");
@@ -53,7 +56,8 @@ module.exports.updateListing=async (req, res) => {
 
     updatedlisting.title=req.body.title;
     updatedlisting.description=req.body.description;
-    updatedlisting.image.url=req.body.image;
+    updatedlisting.image.url=req.file.path;
+    updatedlisting.image.filename=req.file.filename;
     updatedlisting.price=req.body.price;
     updatedlisting.location=req.body.location;
     updatedlisting.country=req.body.country;

@@ -3,9 +3,9 @@
     <div class="row mt-3">
         <div class="col-8 offset-2">
     <h3>Edit listing</h3>
-    <form action="/listings/<%= listing.id %>?_method=PUT" novalidate class="needs-validation" method="POST" >
+    <form action="/listings/<%= listing.id %>?_method=PUT" novalidate class="needs-validation" method="POST" enctype="multipart/form-data" >
         <div class="mb-3">
-            <label for="title" class="form-label"></label>Title</label>
+            <label for="title" class="form-label">Title</label>
             <input value="<%= listing.title %>" class="form-control" type="text" required name="title" placeholder="Enter Title">
         </div>
         
@@ -17,14 +17,20 @@
             <label for="price" class="form-label">Price</label>
             <input value="<%= listing.price %>" type="number" required name="price" class="form-control" placeholder="Enter price">
         </div>
+
+        <div class="mb-3">
+            <h6>Original Image</h6>
+            <img src="<%= originalImageUrl %>" alt="">
+        </div>
+
         <div class="mb-3">
             <label for="image" form="form-label">Image url</label>
-            <input type="text" value="<%= listing.image.url %>" required name="image" class="form-control" placeholder="Enter Enter image url">
+            <input type="file" required name="image"  class="form-control" placeholder="Enter Enter image url">
 
         </div>
         <div class="mb-3">
             <label for="location" class="form-label" >Location</label>
-             <input type="text" value="<%= listing.location %>" required class="form-control" name="location" placeholder="Enter location">
+             <input type="text"  value="<%= listing.location %>"" required class="form-control" name="location" placeholder="Enter location">
          </div>
          <div class="mb-3">
             <label for="country" class="form-label">Country</label>
