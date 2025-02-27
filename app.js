@@ -56,11 +56,6 @@ const sessionOptions ={
     },
 }
 
-//home route
-app.get("/",(req,res)=>{
-    res.send("Working");
- 
-});
 
 app.use(session(sessionOptions));
 app.use(flash());
